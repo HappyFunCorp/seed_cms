@@ -1,0 +1,35 @@
+<%= simple_form_for(@entry, as: :entry, url: content_entry_path( @entry )) do |f| %>
+    <%= f.hidden_field :type, value: @entry.type %>
+
+    <%= f.input :title %>
+
+    <% @entry.class.content_attributes.each do |attr_name, attr_type| 
+      if attr_type == :ckeditor %>
+        <%= f.input attr_name, as: attr_type, :input_html => { :ckeditor => {:toolbar => 'Full'} } %>
+      <% else %>
+        <%= f.input attr_name, as: attr_type %>
+      <% end %>
+    <% end %>
+
+    <%= f.input :slug %>
+    <%= f.input :author_name %>
+    
+
+    <div class="row">
+      <div class='col-xs-12'>
+        <label class="string optional control-label" for="datetimepicker4">Published At</label>
+
+          <input type='text' class="form-control" id='datetimepicker4' name="entry[published_at]"/>
+      </div>
+      <script type="text/javascript">
+          $(function () {
+              $('#datetimepicker4').datetimepicker({
+                format: "MMM D, YYYY H:m",
+                defaultDate: '<%= (@entry.published_at || Time.now).strftime( "%m/%d/%y %H:%M") %>'
+              });
+          });
+      </script>
+    </div>
+
+    <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>

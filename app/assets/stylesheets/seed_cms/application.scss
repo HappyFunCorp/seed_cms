@@ -1,0 +1,13 @@
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'bootstrap-datetimepicker';
+
+.content {
+  @extend .col-sm-9;
+  @extend .col-sm-push-3;
+}
+
+.sidebar {
+  @extend .col-sm-3;
+  @extend .col-sm-pull-9;
+}
